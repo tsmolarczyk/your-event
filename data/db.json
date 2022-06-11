@@ -1,15 +1,15 @@
 {
-  "posts": [
+  "events": [
     {
       "id": 1,
       "title": "Party",
       "date": "22.10.2022",
       "description": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tincidunt, magna at efficitur posuere, enim felis varius tortor, a imperdiet enim justo eu justo. Vivamus mattis sed elit vel luctus. ",
       "picture": "",
-      "type": "A",
-      "telephone": "231123123",
-      "email": "kania@gmail.com",
-      "adress": "NY"
+      "categories": "string",
+      "phone": "string",
+      "email": "string",
+      "place": "NY"
     },
     {
       "id": 2,
@@ -17,10 +17,10 @@
       "date": "02.12.2022",
       "description": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tincidunt, magna at efficitur posuere, enim felis varius tortor, a imperdiet enim justo eu justo. Vivamus mattis sed elit vel luctus. ",
       "picture": "",
-      "type": "A",
-      "telephone": "231123123",
-      "email": "kania@gmail.com",
-      "adress": "NY"
+      "categories": "string",
+      "phone": "string",
+      "email": "string",
+      "place": "string"
     }
   ],
   "type": [

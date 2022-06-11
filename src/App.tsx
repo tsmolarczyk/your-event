@@ -1,29 +1,21 @@
-import './App.css';
-import { EventsList } from './components/EventsList';
-import { Event } from './components/Event';
+import { EventsList } from './pages/EventsList';
 import { NavBar } from './components/Navigation/NavBar';
-import Button from '@mui/material/Button';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Footer } from './components/Footer/Footer';
+import { AddEventForm } from './pages/AddEventForm';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <div className='App'>
-      <Link to='/'>Home</Link>
-
-      <Button>
-        <Link to='/Event'>Home</Link>
-      </Button>
-      <div>opisysdaada </div>
-      {/* nav */}
+    <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path='/' element={<EventsList />}></Route>
-        <Route path='/Event' element={<Event />}></Route>
+        <Route path='/' element={<EventsList />} />
+        <Route path='/form' element={<AddEventForm />} />
       </Routes>
-      {/* footer */}
+
       <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
 
