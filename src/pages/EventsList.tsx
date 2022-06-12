@@ -62,7 +62,12 @@ const EventsList = () => {
       <Typography variant='h2'>Events list</Typography>
 
       {events.map((event: Event) => (
-        <EventComponent id={event.id} title={event.title} place={event.place} />
+        <EventComponent
+          key={event.id}
+          id={event.id}
+          title={event.title}
+          place={event.place}
+        />
       ))}
       <Button
         onClick={handleAddEventClick}
