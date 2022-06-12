@@ -35,17 +35,27 @@ const AddEventForm = () => {
       email: '',
       place: '',
     },
-    // validationSchema: Yup.object({
-    //   email: Yup.string()
-    //     .email('lol')
-    //     .max(15, 'Must be 15 or less characters')
-    //     .required('Required'),
-    // }),
+    validationSchema: Yup.object({
+      title: Yup.string()
+        .max(5, 'Must be 20 characters or less')
+        .required('Required'),
+      description: Yup.string().required('Description is required'),
+      picture: Yup.string().required('Add a picture'),
+      phone: Yup.string()
+        .max(10, 'Phone number is too long')
+        .min(7, 'Phone number is too short')
+        .required('Phone number is required'),
+      email: Yup.string()
+        .email('Must be valid email adress')
+        .required('Email is required'),
+      place: Yup.string().required('Adress of the event is required'),
+    }),
     onSubmit: (values) => {
       console.log(values);
     },
   });
 
+  console.log(formik.errors);
   return (
     <div>
       <Formik
@@ -64,6 +74,10 @@ const AddEventForm = () => {
               onChange={formik.handleChange}
               value={formik.values.title}
             />
+            {formik.errors.title && formik.touched.title ? (
+              <p>{formik.errors.title}</p>
+            ) : null}
+
             <Field
               type='date'
               id='date'
@@ -72,6 +86,10 @@ const AddEventForm = () => {
               onChange={formik.handleChange}
               value={formik.values.date}
             />
+            {formik.errors.date && formik.touched.date ? (
+              <p>{formik.errors.date}</p>
+            ) : null}
+
             <Field
               type='text'
               id='description'
@@ -80,6 +98,9 @@ const AddEventForm = () => {
               onChange={formik.handleChange}
               value={formik.values.description}
             />
+            {formik.errors.description && formik.touched.description ? (
+              <p>{formik.errors.description}</p>
+            ) : null}
 
             <Field
               type='text'
@@ -89,6 +110,9 @@ const AddEventForm = () => {
               onChange={formik.handleChange}
               value={formik.values.picture}
             />
+            {formik.errors.picture && formik.touched.picture ? (
+              <p>{formik.errors.picture}</p>
+            ) : null}
 
             <Field
               as='select'
@@ -109,6 +133,9 @@ const AddEventForm = () => {
               onChange={formik.handleChange}
               value={formik.values.phone}
             />
+            {formik.errors.phone && formik.touched.phone ? (
+              <p>{formik.errors.phone}</p>
+            ) : null}
 
             <Field
               type='email'
@@ -121,7 +148,6 @@ const AddEventForm = () => {
             {formik.errors.email && formik.touched.email ? (
               <p>{formik.errors.email}</p>
             ) : null}
-            {/* {errors.email && touched.email && <div>{errors.email}</div>} */}
 
             <Field
               type='text'
@@ -131,12 +157,11 @@ const AddEventForm = () => {
               onChange={formik.handleChange}
               value={formik.values.place}
             />
+            {formik.errors.place && formik.touched.place ? (
+              <p>{formik.errors.place}</p>
+            ) : null}
 
-            <Button
-              variant='contained'
-              type='submit'
-              onClick={formik.handleReset}
-            >
+            <Button variant='contained' type='submit'>
               Submit
             </Button>
 

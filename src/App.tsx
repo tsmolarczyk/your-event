@@ -1,8 +1,8 @@
-import { EventsList } from './pages/EventsList';
+import { EventsList } from './pages/Events/EventsList';
 import { NavBar } from './components/Navigation/NavBar';
 import { Routes, Route } from 'react-router-dom';
 import { Footer } from './components/Footer/Footer';
-import { AddEventForm } from './pages/AddEventForm';
+import { AddEventForm } from './pages/Form/AddEventForm';
 import { BrowserRouter } from 'react-router-dom';
 
 function App() {
