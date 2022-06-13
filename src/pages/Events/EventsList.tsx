@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import EventComponent, { Event } from 'components/Event';
 

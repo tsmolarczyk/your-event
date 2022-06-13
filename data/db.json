@@ -22,14 +22,5 @@
       "email": "string",
       "place": "string"
     }
-  ],
-  "config": [
-    {
-      "id": 1,
-      "question": "Give us type the event",
-      "answerA": "Sport",
-      "answerB": "Kultura",
-      "answerC": "Zdrowie"
-    }
   ]
 }

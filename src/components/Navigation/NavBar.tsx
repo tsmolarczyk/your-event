@@ -3,10 +3,11 @@ import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
 import EventIcon from '@mui/icons-material/Event';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
+import css from './NavBar.module.css';
 
 const NavBar = () => {
   return (
-    <Box>
+    <Box className={css.navBar}>
       <Link to='/' style={{ textDecoration: 'none' }}>
         <Button
           startIcon={<EventIcon />}
