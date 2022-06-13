@@ -1,86 +1,76 @@
-import Button from '@mui/material/Button';
+import { useAddEventForm } from './useAddEventForm';
+
+import { FormValues } from '../../utils/types';
+
 import * as Yup from 'yup';
-import { useState } from 'react';
-import css from './AddEventForm.module.css';
-import { useCallback } from 'react';
-import { Box } from '@mui/material';
 
-import { Formik, FormikProps, Form, Field, useFormik } from 'formik';
+import { Formik, Form } from 'formik';
+
+import { Box, MenuItem } from '@mui/material';
+import { TextField } from '@mui/material';
+import Button from '@mui/material/Button';
+import { Select } from '@mui/material';
 import { Typography } from '@mui/material';
+import { styled } from '@mui/system';
 
-interface MyFormValues {
-  title: string;
-  date: string;
-  description: string;
-  picture: string;
-  category: string;
-  phone: string;
-  email: string;
-  place: string;
-}
+const StyledTextField = styled(TextField)({
+  marginTop: 15,
+});
+
+const validationSchema = Yup.object({
+  title: Yup.string()
+    .max(20, 'Must be 20 characters or less')
+    .required('Required'),
+  description: Yup.string().required('Description is required'),
+  picture: Yup.string().required('Add a picture'),
+  phone: Yup.string()
+    .max(13, 'Phone number is too long')
+    .min(7, 'Phone number is too short')
+    .required('Phone number is required'),
+  email: Yup.string()
+    .email('Must be valid email adress')
+    .required('Email is required'),
+  place: Yup.string().required('Adress of the event is required'),
+});
+
+const initialValues: FormValues = {
+  title: '',
+  date: '',
+  description: '',
+  picture: '',
+  category: 'sport',
+  phone: '',
+  email: '',
+  place: '',
+};
+
+const commonProps = {
+  InputLabelProps: { style: { fontSize: 20 } },
+  InputProps: { style: { fontSize: 20 } },
+  required: true,
+  fullWidth: true,
+};
 
 const AddEventForm = () => {
-  const postEvent = () => {
-    fetch('http://localhost:3001/events', {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ ...formInputs }),
-    });
-  };
-
-  const [formInputs, setFormInputs] = useState<MyFormValues>({
-    title: '',
-    date: '',
-    description: '',
-    picture: '',
-    category: 'sport',
-    phone: '',
-    email: '',
-    place: '',
-  });
-
-  const formik: FormikProps<MyFormValues> = useFormik<MyFormValues>({
-    initialValues: {
-      title: '',
-      date: '',
-      description: '',
-      picture: '',
-      category: 'sport',
-      phone: '',
-      email: '',
-      place: '',
-    },
-    validationSchema: Yup.object({
-      title: Yup.string()
-        .max(20, 'Must be 20 characters or less')
-        .required('Required'),
-      description: Yup.string().required('Description is required'),
-      picture: Yup.string().required('Add a picture'),
-      phone: Yup.string()
-        .max(13, 'Phone number is too long')
-        .min(7, 'Phone number is too short')
-        .required('Phone number is required'),
-      email: Yup.string()
-        .email('Must be valid email adress')
-        .required('Email is required'),
-      place: Yup.string().required('Adress of the event is required'),
-    }),
-    onSubmit: (values) => {
-      setFormInputs(values);
-      postEvent();
-    },
-  });
+  const { handleSubmit } = useAddEventForm();
 
   return (
     <Box margin={5}>
       <Formik
-        initialValues={formik.initialValues}
-        onSubmit={(values, actions) => {
-          console.log({ values, actions });
-        }}
+        validationSchema={validationSchema}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
       >
-        {({ errors, touched, isValidating, resetForm }) => (
-          <Form className={css.formContainer} onSubmit={formik.handleSubmit}>
+        {({
+          errors,
+          touched,
+          isValidating,
+          resetForm,
+          handleChange,
+          handleReset,
+          values,
+        }) => (
+          <Form noValidate autoComplete='off'>
             <Typography
               variant='h2'
               color='primary'
@@ -89,117 +79,139 @@ const AddEventForm = () => {
             >
               Add New Event
             </Typography>
-            <Box className={css.inputsContainer}>
-              <Field
+
+            <Box>
+              <StyledTextField
+                label='Title'
+                variant='outlined'
+                color='info'
                 type='text'
                 id='title'
                 name='title'
-                placeholder='Title'
-                onChange={formik.handleChange}
-                value={formik.values.title}
+                onChange={handleChange}
+                value={values.title}
+                {...commonProps}
               />
-              {formik.errors.title && formik.touched.title ? (
-                <p className={css.errorMsg}>{formik.errors.title}</p>
-              ) : null}
+              {errors.title && touched.title && <p>{errors.title}</p>}
 
-              <Field
-                type='date'
-                id='date'
+              <StyledTextField
+                id='datetime-local'
+                type='datetime-local'
+                defaultValue='2022-05-24T10:30'
                 name='date'
-                placeholder='Date of the event'
-                onChange={formik.handleChange}
-                value={formik.values.date}
+                onChange={handleChange}
+                value={values.date}
+                {...commonProps}
               />
-              {formik.errors.date && formik.touched.date ? (
-                <p>{formik.errors.date}</p>
-              ) : null}
+              {errors.date && touched.date && <p>{errors.date}</p>}
 
-              <Field
+              <StyledTextField
+                label='Description'
+                variant='outlined'
+                color='info'
+                fullWidth
+                required
+                InputLabelProps={{ style: { fontSize: 20 } }}
+                InputProps={{ style: { fontSize: 20 } }}
                 type='text'
                 id='description'
                 name='description'
-                placeholder='Description'
-                onChange={formik.handleChange}
-                value={formik.values.description}
+                onChange={handleChange}
+                value={values.description}
               />
-              {formik.errors.description && formik.touched.description ? (
-                <p>{formik.errors.description}</p>
-              ) : null}
+              {errors.description && touched.description && (
+                <p>{errors.description}</p>
+              )}
 
-              <Field
+              <StyledTextField
+                label='Picture'
+                variant='outlined'
+                color='info'
+                fullWidth
+                required
+                InputLabelProps={{ style: { fontSize: 20 } }}
+                InputProps={{ style: { fontSize: 20 } }}
                 type='text'
                 id='picture'
                 name='picture'
-                placeholder='Picture source'
-                onChange={formik.handleChange}
-                value={formik.values.picture}
+                onChange={handleChange}
+                value={values.picture}
               />
-              {formik.errors.picture && formik.touched.picture ? (
-                <p>{formik.errors.picture}</p>
-              ) : null}
+              {errors.picture && touched.picture && <p>{errors.picture}</p>}
 
-              <Field
-                as='select'
+              <Select
+                fullWidth
                 name='category'
-                value={formik.values.category}
-                onChange={formik.handleChange}
+                value={values.category}
+                onChange={handleChange}
               >
-                <option value='sport'>Sport</option>
-                <option value='culture'>Culture</option>
-                <option value='health'>Health</option>
-              </Field>
+                <MenuItem value='sport'>Sport</MenuItem>
+                <MenuItem value='culture'>Culture</MenuItem>
+                <MenuItem value='health'>Health</MenuItem>
+              </Select>
 
-              <Field
+              <StyledTextField
+                label='Phone'
+                variant='outlined'
+                color='info'
+                fullWidth
+                required
+                InputLabelProps={{ style: { fontSize: 20 } }}
+                InputProps={{ style: { fontSize: 20 } }}
                 type='text'
                 id='phone'
                 name='phone'
-                placeholder='Phone number'
-                onChange={formik.handleChange}
-                value={formik.values.phone}
+                onChange={handleChange}
+                value={values.phone}
               />
-              {formik.errors.phone && formik.touched.phone ? (
-                <p>{formik.errors.phone}</p>
-              ) : null}
+              {errors.phone && touched.phone && <p>{errors.phone}</p>}
 
-              <Field
+              <StyledTextField
+                label='Email'
+                variant='outlined'
+                color='info'
+                fullWidth
+                required
+                InputLabelProps={{ style: { fontSize: 20 } }}
+                InputProps={{ style: { fontSize: 20 } }}
                 type='email'
                 id='email'
                 name='email'
-                placeholder='Email'
-                onChange={formik.handleChange}
-                value={formik.values.email}
+                onChange={handleChange}
+                value={values.email}
               />
-              {formik.errors.email && formik.touched.email ? (
-                <p>{formik.errors.email}</p>
-              ) : null}
+              {errors.email && touched.email && <p>{errors.email}</p>}
 
-              <Field
+              <StyledTextField
+                label='Adress'
+                variant='outlined'
+                color='info'
+                fullWidth
+                required
+                InputLabelProps={{ style: { fontSize: 20 } }}
+                InputProps={{ style: { fontSize: 20 } }}
                 type='text'
                 id='place'
                 name='place'
-                placeholder='Adress'
-                onChange={formik.handleChange}
-                value={formik.values.place}
+                onChange={handleChange}
+                value={values.place}
               />
             </Box>
-            {formik.errors.place && formik.touched.place ? (
-              <p>{formik.errors.place}</p>
-            ) : null}
+            {errors.place && touched.place && <p>{errors.place}</p>}
 
-            <Box>
-              <Button variant='contained' type='submit'>
-                Submit
-              </Button>
+            <Button variant='contained' type='submit' size='large'>
+              Submit
+            </Button>
 
-              <Button
-                color='warning'
-                variant='contained'
-                type='reset'
-                onClick={formik.handleReset}
-              >
-                Reset
-              </Button>
-            </Box>
+            <Button
+              color='warning'
+              variant='contained'
+              type='reset'
+              size='large'
+              onClick={handleReset}
+            >
+              Reset
+            </Button>
           </Form>
         )}
       </Formik>

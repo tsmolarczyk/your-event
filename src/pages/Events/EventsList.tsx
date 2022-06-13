@@ -1,8 +1,14 @@
+import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { eventsUrl } from '../../utils/apiUrls';
+
+import EventComponent, { Event } from 'components/Event';
+
+import { Container } from '@mui/material';
+import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState, useCallback } from 'react';
-import EventComponent, { Event } from 'components/Event';
 
 type ResponseData = {
   id: number;
@@ -42,7 +48,7 @@ const EventsList = () => {
         'Content-Type': 'application/json',
       },
     };
-    const url = 'http://localhost:3001/events';
+    const url = eventsUrl;
     const res = await fetch(url, options);
     const data = await res.json();
     setEvents(mapResponse(data));
@@ -52,23 +58,34 @@ const EventsList = () => {
     navigate('/form');
   };
 
-  console.log(events);
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [fetchEvents]);
+
+  const handleDelete = async (id: number) => {
+    await fetch(`${eventsUrl}/` + id, {
+      method: 'DELETE',
+    });
+    const newEvents = events.filter((event) => event.id !== id);
+    setEvents(newEvents);
+  };
 
   return (
-    <>
-      <Typography variant='h2'>Events list</Typography>
+    <Container>
+      <Grid>
+        <Typography variant='h2'>Events list</Typography>
 
-      {events.map((event: Event) => (
-        <EventComponent
-          key={event.id}
-          id={event.id}
-          title={event.title}
-          place={event.place}
-        />
-      ))}
+        {events.map((event: Event) => (
+          <Grid key={event.id}>
+            <EventComponent
+              id={event.id}
+              title={event.title}
+              place={event.place}
+              onDelete={handleDelete}
+            />
+          </Grid>
+        ))}
+      </Grid>
       <Button
         onClick={handleAddEventClick}
         size='large'
@@ -77,7 +94,7 @@ const EventsList = () => {
       >
         Add new event
       </Button>
-    </>
+    </Container>
   );
 };
 

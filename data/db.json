@@ -1,26 +1,15 @@
 {
   "events": [
     {
-      "id": 1,
-      "title": "Party",
-      "date": "22.10.2022",
-      "description": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tincidunt, magna at efficitur posuere, enim felis varius tortor, a imperdiet enim justo eu justo. Vivamus mattis sed elit vel luctus. ",
-      "picture": "",
-      "categories": "string",
-      "phone": "string",
-      "email": "string",
-      "place": "NY"
-    },
-    {
-      "id": 2,
-      "title": "Sport",
-      "date": "02.12.2022",
-      "description": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tincidunt, magna at efficitur posuere, enim felis varius tortor, a imperdiet enim justo eu justo. Vivamus mattis sed elit vel luctus. ",
-      "picture": "",
-      "categories": "string",
-      "phone": "string",
-      "email": "string",
-      "place": "string"
+      "title": "nowa silka",
+      "date": "2222-02-10T10:00",
+      "description": "12312312",
+      "picture": "123123123",
+      "category": "sport",
+      "phone": "123123123",
+      "email": "tomek.smolarczyk@gmail.com",
+      "place": "Katowice",
+      "id": 1
     }
   ]
 }
