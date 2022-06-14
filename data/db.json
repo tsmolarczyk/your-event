@@ -1,37 +1,26 @@
 {
   "events": [
     {
-      "title": "32432412",
-      "date": "2022-02-10T10:00",
-      "description": "dwa",
-      "picture": "src",
+      "title": "Bieg po zdrowie",
+      "date": "2022-12-10T10:00",
+      "description": "Bieg po zdrowie w Twojej dzielnicy",
+      "picture": "https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/01/Runner-training-on-running-track-1296x728-header-1296x728.jpg?w=1575",
       "category": "sport",
-      "phone": "123123123",
-      "email": "tomek.smolarczyk@gmail.com",
-      "place": "zory",
+      "phone": "999222111",
+      "email": "m.nowak@gmail.com",
+      "place": "Katowice, Warszawska 16",
       "id": 1
     },
     {
-      "title": "dasdasd",
-      "date": "2020-02-10T10:00",
-      "description": "sdasda",
-      "picture": "asdasd",
-      "category": "sport",
-      "phone": "asdasdasd",
-      "email": "tomek.smolarczyk@gmail.com",
-      "place": "123123",
+      "title": "Otwarcie Siłowni",
+      "date": "2023-03-29T06:00",
+      "description": "Otwarcie nowej siłowni z piknikiem",
+      "picture": "https://static.wixstatic.com/media/ae9326_15dc9613bb7c437ab99a2bfd7ce23c63~mv2.jpg/v1/fill/w_640,h_616,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/ae9326_15dc9613bb7c437ab99a2bfd7ce23c63~mv2.jpg",
+      "category": "health",
+      "phone": "239765287",
+      "email": "l.kowalski@gmail.com",
+      "place": "Warszawa, Katowicka 19",
       "id": 2
-    },
-    {
-      "title": "dasdasd123",
-      "date": "2020-02-10T10:00",
-      "description": "sdasda",
-      "picture": "asdasd",
-      "category": "sport",
-      "phone": "asdasdasd",
-      "email": "tomek.smolarczyk@gmail.com",
-      "place": "123123",
-      "id": 3
     }
   ]
 }

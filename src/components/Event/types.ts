@@ -4,7 +4,7 @@ export type Event = {
   date: string;
   description: string;
   picture: string;
-  categories: string;
+  category: string;
   phone: string;
   email: string;
   place: string;

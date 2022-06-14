@@ -16,7 +16,7 @@ type ResponseData = {
   date: string;
   description: string;
   picture: string;
-  categories: string;
+  category: string;
   phone: string;
   email: string;
   place: string;
@@ -29,7 +29,7 @@ const mapResponse = (response: ResponseData): Event[] => {
     date: record.date,
     description: record.description,
     picture: record.picture,
-    categories: record.categories,
+    category: record.category,
     phone: record.phone,
     email: record.email,
     place: record.place,
@@ -72,26 +72,36 @@ const EventsList = () => {
 
   return (
     <Container>
-      <Grid>
-        <Typography variant='h2'>Events list</Typography>
+      <Typography variant='h2'>Events list</Typography>
 
-        {events.map((event: Event) => (
-          <Grid key={event.id}>
-            <EventComponent
-              id={event.id}
-              title={event.title}
-              place={event.place}
-              picture={event.picture}
-              onDelete={handleDelete}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      {events.map((event: Event) => (
+        <Grid
+          container
+          justifyContent='center'
+          spacing={3}
+          marginBottom={4}
+          key={event.id}
+        >
+          <EventComponent
+            id={event.id}
+            title={event.title}
+            date={event.date}
+            description={event.description}
+            category={event.category}
+            phone={event.phone}
+            email={event.email}
+            place={event.place}
+            picture={event.picture}
+            onDelete={handleDelete}
+          />
+        </Grid>
+      ))}
       <Button
         onClick={handleAddEventClick}
         size='large'
         variant='contained'
         color='error'
+        style={{ fontSize: '15px' }}
       >
         Add new event
       </Button>
