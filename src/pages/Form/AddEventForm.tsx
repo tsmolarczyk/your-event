@@ -1,36 +1,24 @@
 import { useAddEventForm } from './useAddEventForm';
 
 import { FormValues } from '../../utils/types';
-
-import * as Yup from 'yup';
+import { validationSchema } from '../../utils/validation';
 
 import { Formik, Form } from 'formik';
 
-import { Box, MenuItem } from '@mui/material';
+import { Box, ButtonGroup, MenuItem } from '@mui/material';
 import { TextField } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import { Select } from '@mui/material';
 import { Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
-const StyledTextField = styled(TextField)({
-  marginTop: 15,
+const StyledParagraph = styled(Typography)({
+  color: 'red',
+  marginLeft: 10,
 });
-
-const validationSchema = Yup.object({
-  title: Yup.string()
-    .max(20, 'Must be 20 characters or less')
-    .required('Required'),
-  description: Yup.string().required('Description is required'),
-  picture: Yup.string().required('Add a picture'),
-  phone: Yup.string()
-    .max(13, 'Phone number is too long')
-    .min(7, 'Phone number is too short')
-    .required('Phone number is required'),
-  email: Yup.string()
-    .email('Must be valid email adress')
-    .required('Email is required'),
-  place: Yup.string().required('Adress of the event is required'),
+const StyledTextField = styled(TextField)({
+  marginBottom: 15,
 });
 
 const initialValues: FormValues = {
@@ -92,7 +80,9 @@ const AddEventForm = () => {
                 value={values.title}
                 {...commonProps}
               />
-              {errors.title && touched.title && <p>{errors.title}</p>}
+              {errors.title && touched.title && (
+                <StyledParagraph>{errors.title}</StyledParagraph>
+              )}
 
               <StyledTextField
                 id='datetime-local'
@@ -103,41 +93,84 @@ const AddEventForm = () => {
                 value={values.date}
                 {...commonProps}
               />
-              {errors.date && touched.date && <p>{errors.date}</p>}
+              {errors.date && touched.date && (
+                <StyledParagraph>{errors.date}</StyledParagraph>
+              )}
 
               <StyledTextField
                 label='Description'
                 variant='outlined'
                 color='info'
-                fullWidth
-                required
-                InputLabelProps={{ style: { fontSize: 20 } }}
-                InputProps={{ style: { fontSize: 20 } }}
                 type='text'
                 id='description'
                 name='description'
                 onChange={handleChange}
                 value={values.description}
+                {...commonProps}
               />
               {errors.description && touched.description && (
-                <p>{errors.description}</p>
+                <StyledParagraph>{errors.description}</StyledParagraph>
               )}
 
               <StyledTextField
                 label='Picture'
                 variant='outlined'
                 color='info'
-                fullWidth
-                required
-                InputLabelProps={{ style: { fontSize: 20 } }}
-                InputProps={{ style: { fontSize: 20 } }}
                 type='text'
                 id='picture'
                 name='picture'
                 onChange={handleChange}
                 value={values.picture}
+                {...commonProps}
               />
-              {errors.picture && touched.picture && <p>{errors.picture}</p>}
+              {errors.picture && touched.picture && (
+                <StyledParagraph>{errors.picture}</StyledParagraph>
+              )}
+
+              <StyledTextField
+                label='Phone'
+                variant='outlined'
+                color='info'
+                type='text'
+                id='phone'
+                name='phone'
+                onChange={handleChange}
+                value={values.phone}
+                {...commonProps}
+              />
+              {errors.phone && touched.phone && (
+                <StyledParagraph>{errors.phone}</StyledParagraph>
+              )}
+
+              <StyledTextField
+                label='Email'
+                variant='outlined'
+                color='info'
+                type='email'
+                id='email'
+                name='email'
+                onChange={handleChange}
+                value={values.email}
+                {...commonProps}
+              />
+              {errors.email && touched.email && (
+                <StyledParagraph>{errors.email}</StyledParagraph>
+              )}
+
+              <StyledTextField
+                label='Adress'
+                variant='outlined'
+                color='info'
+                type='text'
+                id='place'
+                name='place'
+                onChange={handleChange}
+                value={values.place}
+                {...commonProps}
+              />
+              {errors.place && touched.place && (
+                <StyledParagraph>{errors.place}</StyledParagraph>
+              )}
 
               <Select
                 fullWidth
@@ -145,73 +178,45 @@ const AddEventForm = () => {
                 value={values.category}
                 onChange={handleChange}
               >
-                <MenuItem value='sport'>Sport</MenuItem>
-                <MenuItem value='culture'>Culture</MenuItem>
-                <MenuItem value='health'>Health</MenuItem>
+                <MenuItem value='sport'>
+                  <Typography fontSize={20}>Sport</Typography>
+                </MenuItem>
+                <MenuItem value='culture'>
+                  <Typography fontSize={20}>Culture</Typography>
+                </MenuItem>
+                <MenuItem value='health'>
+                  <Typography fontSize={20}>Health</Typography>
+                </MenuItem>
               </Select>
-
-              <StyledTextField
-                label='Phone'
-                variant='outlined'
-                color='info'
-                fullWidth
-                required
-                InputLabelProps={{ style: { fontSize: 20 } }}
-                InputProps={{ style: { fontSize: 20 } }}
-                type='text'
-                id='phone'
-                name='phone'
-                onChange={handleChange}
-                value={values.phone}
-              />
-              {errors.phone && touched.phone && <p>{errors.phone}</p>}
-
-              <StyledTextField
-                label='Email'
-                variant='outlined'
-                color='info'
-                fullWidth
-                required
-                InputLabelProps={{ style: { fontSize: 20 } }}
-                InputProps={{ style: { fontSize: 20 } }}
-                type='email'
-                id='email'
-                name='email'
-                onChange={handleChange}
-                value={values.email}
-              />
-              {errors.email && touched.email && <p>{errors.email}</p>}
-
-              <StyledTextField
-                label='Adress'
-                variant='outlined'
-                color='info'
-                fullWidth
-                required
-                InputLabelProps={{ style: { fontSize: 20 } }}
-                InputProps={{ style: { fontSize: 20 } }}
-                type='text'
-                id='place'
-                name='place'
-                onChange={handleChange}
-                value={values.place}
-              />
             </Box>
-            {errors.place && touched.place && <p>{errors.place}</p>}
 
-            <Button variant='contained' type='submit' size='large'>
-              Submit
-            </Button>
-
-            <Button
-              color='warning'
-              variant='contained'
-              type='reset'
-              size='large'
-              onClick={handleReset}
+            <ButtonGroup
+              style={{
+                fontSize: '20px',
+                marginTop: '20px',
+                height: '50px',
+              }}
             >
-              Reset
-            </Button>
+              <Button
+                variant='contained'
+                type='submit'
+                size='large'
+                style={{ fontSize: '15px' }}
+              >
+                Submit
+              </Button>
+
+              <Button
+                color='warning'
+                variant='contained'
+                type='reset'
+                size='large'
+                onClick={handleReset}
+                style={{ fontSize: '15px' }}
+              >
+                Reset
+              </Button>
+            </ButtonGroup>
           </Form>
         )}
       </Formik>

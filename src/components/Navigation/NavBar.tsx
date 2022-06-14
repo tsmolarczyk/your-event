@@ -6,13 +6,14 @@ import { Box } from '@mui/system';
 
 const NavBar = () => {
   return (
-    <Box>
+    <Box margin={5}>
       <Link to='/' style={{ textDecoration: 'none' }}>
         <Button
           startIcon={<EventIcon />}
           size='large'
           color='secondary'
           variant='contained'
+          style={{ fontSize: '15px' }}
         >
           Event List
         </Button>
@@ -24,6 +25,7 @@ const NavBar = () => {
           size='large'
           color='primary'
           variant='contained'
+          style={{ fontSize: '15px' }}
         >
           Form
         </Button>

@@ -4,13 +4,13 @@ import { FormValues } from '../../utils/types';
 const useAddEventForm = () => {
   const handleSubmit = (values: FormValues) => {
     try {
-      fetch(eventsUrl, {
+      fetch('eventsUrl', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ ...values }),
       });
     } catch {
-      console.log('lol');
+      alert('ERROR');
     }
   };
 

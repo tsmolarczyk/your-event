@@ -81,6 +81,7 @@ const EventsList = () => {
               id={event.id}
               title={event.title}
               place={event.place}
+              picture={event.picture}
               onDelete={handleDelete}
             />
           </Grid>
